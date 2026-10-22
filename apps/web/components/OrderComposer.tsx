@@ -7,6 +7,7 @@ import {
   PAYMENT_METHODS,
   ZONES,
   buildOrderMessage,
+  deliveryFeeText,
   whatsappLink,
   type CategoryKey,
   type OrderDraft,
@@ -17,7 +18,7 @@ const EMPTY: OrderDraft = {
   category: "restaurant",
   details: "",
   pickup: "",
-  zone: ZONES[0],
+  zone: ZONES[0].name,
   address: "",
   customerName: "",
   phone: "",
@@ -26,6 +27,9 @@ const EMPTY: OrderDraft = {
 
 // Category cards elsewhere on the page pick a category through this event.
 export const PICK_CATEGORY = "absher:pick-category";
+// The assistant and the restaurant list prefill parts of the order through this event.
+export const PREFILL_ORDER = "absher:prefill-order";
+export type Prefill = Partial<Pick<OrderDraft, "category" | "details" | "pickup">>;
 
 export default function OrderComposer() {
   const [order, setOrder] = useState<OrderDraft>(EMPTY);
@@ -35,8 +39,16 @@ export default function OrderComposer() {
 
   useEffect(() => {
     const onPick = (e: Event) => set("category", (e as CustomEvent<CategoryKey>).detail);
+    const onPrefill = (e: Event) => {
+      const p = (e as CustomEvent<Prefill>).detail || {};
+      setOrder((o) => ({ ...o, ...p }));
+    };
     window.addEventListener(PICK_CATEGORY, onPick);
-    return () => window.removeEventListener(PICK_CATEGORY, onPick);
+    window.addEventListener(PREFILL_ORDER, onPrefill);
+    return () => {
+      window.removeEventListener(PICK_CATEGORY, onPick);
+      window.removeEventListener(PREFILL_ORDER, onPrefill);
+    };
   }, []);
 
   useEffect(() => {
@@ -108,7 +120,9 @@ export default function OrderComposer() {
               المنطقة
               <select value={order.zone} onChange={(e) => set("zone", e.target.value)}>
                 {ZONES.map((z) => (
-                  <option key={z}>{z}</option>
+                  <option key={z.name} value={z.name}>
+                    {z.name} — {deliveryFeeText(z.name)}
+                  </option>
                 ))}
               </select>
             </label>
@@ -141,6 +155,9 @@ export default function OrderComposer() {
       </div>
       <div className="receipt" aria-live="polite">
         <span className="tag">رسالة الطلب</span>
+        <p className="fee">
+          رسوم التوصيل لـ {order.zone}: <b>{deliveryFeeText(order.zone)}</b>
+        </p>
         <pre>{message}</pre>
         <div className="actions">
           <a className="btn btn-wa" href={whatsappLink(message)} target="_blank" rel="noopener" onClick={send}>

@@ -1,6 +1,8 @@
-import { ACCOUNTS, ZONES, whatsappLink } from "@absher/shared";
+import { ACCOUNTS, ZONES, deliveryFeeText, whatsappLink } from "@absher/shared";
 import OrderComposer from "@/components/OrderComposer";
 import CategoryCards from "@/components/CategoryCards";
+import Restaurants from "@/components/Restaurants";
+import Assistant from "@/components/Assistant";
 import { asset } from "@/lib/asset";
 
 const LOGO = asset("/logo.jpg");
@@ -17,6 +19,7 @@ export default function Home() {
           <nav aria-label="القائمة">
             <a href="#order">اطلب</a>
             <a href="#cats">الأقسام</a>
+            <a href="#restaurants">المطاعم</a>
             <a href="#partners">للمطاعم والمتاجر</a>
             <a href="#couriers">انضم كابتن</a>
             <a href="#app">التطبيق</a>
@@ -26,6 +29,8 @@ export default function Home() {
           </a>
         </div>
       </header>
+
+      <Assistant />
 
       <div className="hero" id="top">
         <div className="wrap">
@@ -73,15 +78,28 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="restaurants" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="section-head">
+              <h2>مطاعم مادبا</h2>
+              <p>دوّر على مطعمك، واضغط عليه عشان يتعبّى بالطلب. مطعمك مش موجود؟ سجّله من تحت.</p>
+            </div>
+            <Restaurants />
+          </div>
+        </section>
+
         <section id="zones" style={{ paddingTop: 0 }}>
           <div className="wrap">
             <div className="section-head">
-              <h2>مناطق التوصيل</h2>
-              <p>منطقتك مش موجودة؟ ابعتلنا على واتساب ومنشوف.</p>
+              <h2>مناطق التوصيل وأسعارها</h2>
+              <p>السعر حسب المنطقة. منطقتك مش موجودة؟ ابعتلنا على واتساب ومنشوف.</p>
             </div>
             <div className="zone-list">
               {ZONES.map((z) => (
-                <span key={z}>{z}</span>
+                <span key={z.name}>
+                  {z.name}
+                  <b>{deliveryFeeText(z.name)}</b>
+                </span>
               ))}
             </div>
           </div>
