@@ -83,25 +83,63 @@ export function deliveryFeeText(zoneName: string): string {
   return (z.min === z.max ? money(z.min) : money(z.min) + " - " + money(z.max)) + " د";
 }
 
-// Restaurants shown under the restaurants section and offered by the assistant.
-// NOTE: seeded with well-known Madaba names as examples — the owner confirms/replaces
-// the real list Absher delivers from. Restaurants also add themselves via the partner form.
-export interface Restaurant {
+// Merchants directory: every shop Absher delivers from, grouped by category.
+// Each merchant has its own page (logo + menu), so merchants here map 1:1 to pages.
+// NOTE: seeded with a few real Madaba names as a starting point — the full, accurate
+// directory is filled either from the Google Places API (needs a key) or as merchants
+// register. Add a merchant here and its page is generated automatically.
+export type MerchantCategory = "restaurant" | "pharmacy" | "supermarket" | "produce" | "other";
+
+export const MERCHANT_CATEGORIES: { key: MerchantCategory; label: string }[] = [
+  { key: "restaurant", label: "مطاعم" },
+  { key: "pharmacy", label: "صيدليات" },
+  { key: "supermarket", label: "سوبرماركت" },
+  { key: "produce", label: "خضار وفواكه" },
+  { key: "other", label: "محلات أخرى" },
+];
+
+// What order category a merchant maps to when the customer orders from it.
+export const MERCHANT_TO_ORDER: Record<MerchantCategory, CategoryKey> = {
+  restaurant: "restaurant",
+  pharmacy: "pharmacy",
+  supermarket: "supermarket",
+  produce: "produce",
+  other: "parcel",
+};
+
+export interface MenuItem {
   name: string;
-  kind: string; // cuisine / type, e.g. "شاورما ومشاوي"
-  area?: string;
+  price?: number; // JOD
+  desc?: string;
 }
 
-export const RESTAURANTS: Restaurant[] = [
-  { name: "حارة جدودنا", kind: "مأكولات أردنية ومشاوي", area: "وسط البلد" },
-  { name: "بوابة مادبا", kind: "مشاوي ومقبلات", area: "شارع السياحة" },
-  { name: "مطعم أدونيس", kind: "مشاوي ومأكولات مشكّلة", area: "شارع البلقاء" },
-  { name: "حكاية ستي", kind: "أكل بيتي ومقبلات", area: "مادبا" },
-  { name: "ديوان ذا فيو", kind: "مقلوبة ومأكولات شعبية", area: "شارع عائشة أم المؤمنين" },
-  { name: "آيولا كوفي وكتشن", kind: "مناقيش وفطور", area: "شارع الملك طلال" },
-  { name: "جو زمان", kind: "مأكولات محلية", area: "مادبا" },
-  { name: "المندي كيتشن", kind: "مندي ومشاوي", area: "مادبا" },
+export interface Merchant {
+  slug: string; // used in the page URL /m/<slug>
+  name: string;
+  category: MerchantCategory;
+  kind: string; // short descriptor
+  area?: string;
+  phone?: string;
+  logo?: string; // image path or URL; falls back to the Absher mark
+  menu?: MenuItem[];
+}
+
+export const MERCHANTS: Merchant[] = [
+  { slug: "haret-jdoudna", name: "حارة جدودنا", category: "restaurant", kind: "مأكولات أردنية ومشاوي", area: "وسط البلد" },
+  { slug: "bawabat-madaba", name: "بوابة مادبا", category: "restaurant", kind: "مشاوي ومقبلات", area: "شارع السياحة" },
+  { slug: "adonis", name: "مطعم أدونيس", category: "restaurant", kind: "مشاوي ومأكولات مشكّلة", area: "شارع البلقاء" },
+  { slug: "hikayet-sitti", name: "حكاية ستي", category: "restaurant", kind: "أكل بيتي ومقبلات", area: "مادبا" },
+  { slug: "diwan-the-view", name: "ديوان ذا فيو", category: "restaurant", kind: "مقلوبة ومأكولات شعبية", area: "شارع عائشة أم المؤمنين" },
+  { slug: "ayola", name: "آيولا كوفي وكتشن", category: "restaurant", kind: "مناقيش وفطور", area: "شارع الملك طلال" },
+  { slug: "jaw-zaman", name: "جو زمان", category: "restaurant", kind: "مأكولات محلية", area: "مادبا" },
+  { slug: "almandi-kitchen", name: "المندي كيتشن", category: "restaurant", kind: "مندي ومشاوي", area: "مادبا" },
+  { slug: "js-supermarket", name: "جي جيز سوبرماركت", category: "supermarket", kind: "سوبرماركت وأغراض بيت", area: "طريق المطار" },
+  { slug: "hyper-max", name: "هايبر ماكس", category: "supermarket", kind: "هايبرماركت", area: "مادبا" },
 ];
+
+export const merchantBySlug = (slug: string): Merchant | undefined => MERCHANTS.find((m) => m.slug === slug);
+
+export const merchantsByCategory = (c: MerchantCategory): Merchant[] => MERCHANTS.filter((m) => m.category === c);
 
 export type PaymentMethod = "cash" | "cliq" | "wallet";
 

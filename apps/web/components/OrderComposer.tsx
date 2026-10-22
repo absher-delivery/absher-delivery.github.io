@@ -4,10 +4,12 @@ import { useEffect, useMemo, useState } from "react";
 import {
   ACCOUNTS,
   CATEGORIES,
+  MERCHANT_TO_ORDER,
   PAYMENT_METHODS,
   ZONES,
   buildOrderMessage,
   deliveryFeeText,
+  merchantBySlug,
   whatsappLink,
   type CategoryKey,
   type OrderDraft,
@@ -45,6 +47,12 @@ export default function OrderComposer() {
     };
     window.addEventListener(PICK_CATEGORY, onPick);
     window.addEventListener(PREFILL_ORDER, onPrefill);
+
+    // Arriving from a merchant page (/?from=<slug>) prefills that shop.
+    const slug = new URLSearchParams(window.location.search).get("from");
+    const m = slug ? merchantBySlug(slug) : undefined;
+    if (m) setOrder((o) => ({ ...o, category: MERCHANT_TO_ORDER[m.category], pickup: m.name }));
+
     return () => {
       window.removeEventListener(PICK_CATEGORY, onPick);
       window.removeEventListener(PREFILL_ORDER, onPrefill);

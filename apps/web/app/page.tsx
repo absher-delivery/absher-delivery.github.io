@@ -1,7 +1,7 @@
 import { ACCOUNTS, ZONES, deliveryFeeText, whatsappLink } from "@absher/shared";
 import OrderComposer from "@/components/OrderComposer";
 import CategoryCards from "@/components/CategoryCards";
-import Restaurants from "@/components/Restaurants";
+import Directory from "@/components/Directory";
 import Assistant from "@/components/Assistant";
 import { asset } from "@/lib/asset";
 
@@ -19,7 +19,7 @@ export default function Home() {
           <nav aria-label="القائمة">
             <a href="#order">اطلب</a>
             <a href="#cats">الأقسام</a>
-            <a href="#restaurants">المطاعم</a>
+            <a href="#restaurants">المحلات</a>
             <a href="#partners">للمطاعم والمتاجر</a>
             <a href="#couriers">انضم كابتن</a>
             <a href="#app">التطبيق</a>
@@ -81,10 +81,10 @@ export default function Home() {
         <section id="restaurants" style={{ paddingTop: 0 }}>
           <div className="wrap">
             <div className="section-head">
-              <h2>مطاعم مادبا</h2>
-              <p>دوّر على مطعمك، واضغط عليه عشان يتعبّى بالطلب. مطعمك مش موجود؟ سجّله من تحت.</p>
+              <h2>دليل محلات مادبا</h2>
+              <p>مطاعم، صيدليات، سوبرماركت، خضار وأكثر. اضغط على المحل تشوف صفحته والمنيو. محلك مش موجود؟ سجّله.</p>
             </div>
-            <Restaurants />
+            <Directory />
           </div>
         </section>
 
