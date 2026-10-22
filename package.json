@@ -1,0 +1,11 @@
+{
+  "name": "absher",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "web:dev": "npm run dev -w @absher/web",
+    "web:build": "npm run build -w @absher/web",
+    "mobile:start": "npm run start -w @absher/mobile",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "ابشر",
+    "slug": "absher",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFDB34"
+    },
+    "extra": { "supportsRTL": true, "forcesRTL": true },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "jo.absher.delivery"
+    },
+    "android": {
+      "package": "jo.absher.delivery",
+      "adaptiveIcon": {
+        "backgroundColor": "#FFDB34",
+        "foregroundImage": "./assets/icon.png"
+      }
+    },
+    "web": { "favicon": "./assets/favicon.png" }
+  }
+}
