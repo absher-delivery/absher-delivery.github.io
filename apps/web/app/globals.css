@@ -122,3 +122,41 @@ footer .note{color:#C9BC92}
 .toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline:16px;margin-inline:auto;max-width:360px;background:var(--on-yellow);color:var(--yellow);padding:10px 16px;border-radius:12px;text-align:center;font-weight:500}
 @media (prefers-reduced-motion:no-preference){.stamp img{animation:bob 4s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-6px)}}}
 img{max-width:100%}[hidden]{display:none!important}
+
+/* delivery fee line in the order receipt */
+.receipt .fee{font-size:14px;color:var(--muted);margin:0}
+.receipt .fee b{color:var(--ink)}
+
+/* zone list now carries a price */
+.zone-list span{display:inline-flex;align-items:center;gap:8px}
+.zone-list span b{font-size:13px;color:var(--on-yellow);background:var(--yellow);padding:1px 8px;border-radius:999px}
+
+/* restaurant search + list */
+.search{width:100%;margin-bottom:16px;font:16px var(--body);color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:999px;padding:12px 18px}
+.search:focus{border-color:var(--yellow-deep);outline:none}
+.rest-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.rest{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:4px;cursor:pointer;text-align:start;font:inherit;color:inherit}
+.rest:hover{border-color:var(--yellow-deep)}
+.rest b{font-size:17px}
+.rest small{color:var(--muted);font-size:13px}
+.rest-area{margin-top:4px;font-size:12px;color:var(--on-yellow);background:var(--line);align-self:flex-start;padding:1px 8px;border-radius:999px}
+
+/* order assistant: floating bubble + chat panel */
+.asst-fab{position:fixed;inset-inline-end:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;width:58px;height:58px;border-radius:50%;border:0;background:var(--yellow);color:var(--on-yellow);font-size:26px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.asst{position:fixed;inset-inline-end:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:40;width:min(360px,calc(100vw - 32px));height:min(520px,70vh);background:var(--card);border:2px solid var(--line);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+.asst-head{display:flex;justify-content:space-between;align-items:center;background:var(--yellow);color:var(--on-yellow);padding:12px 16px;font-family:var(--display);font-size:20px}
+.asst-head button{background:transparent;border:0;color:var(--on-yellow);font-size:18px;cursor:pointer}
+.asst-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.asst-row{display:flex;flex-direction:column;gap:6px;max-width:100%}
+.asst-row.me{align-items:flex-start}
+.asst-row.bot{align-items:flex-end}
+.bubble{max-width:85%;padding:10px 14px;border-radius:16px;font-size:15px;line-height:1.6}
+.asst-row.bot .bubble{background:var(--paper);border:1px solid var(--line);color:var(--ink)}
+.asst-row.me .bubble{background:var(--yellow);color:var(--on-yellow)}
+.asst-picks{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.asst-picks button{font:500 13px var(--body);background:transparent;border:2px solid var(--line);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer}
+.asst-picks button:hover{border-color:var(--yellow-deep)}
+.asst-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+.asst-input input{flex:1;font:15px var(--body);color:var(--ink);background:var(--paper);border:2px solid var(--line);border-radius:999px;padding:9px 14px}
+.asst-input input:focus{border-color:var(--yellow-deep);outline:none}
+.asst-input button{width:40px;border:0;border-radius:50%;background:var(--on-yellow);color:var(--yellow);font-size:18px;cursor:pointer}

@@ -6,6 +6,7 @@ import {
   PAYMENT_METHODS,
   ZONES,
   buildOrderMessage,
+  deliveryFeeText,
   whatsappLink,
   type OrderDraft,
 } from "@absher/shared";
@@ -16,7 +17,7 @@ const EMPTY: OrderDraft = {
   category: "restaurant",
   details: "",
   pickup: "",
-  zone: ZONES[0],
+  zone: ZONES[0].name,
   address: "",
   customerName: "",
   phone: "",
@@ -84,7 +85,7 @@ export default function App() {
             </Pressable>
             {zonesOpen && (
               <Chips
-                items={ZONES.map((z) => ({ key: z, label: z }))}
+                items={ZONES.map((z) => ({ key: z.name, label: z.name + " (" + deliveryFeeText(z.name) + ")" }))}
                 value={order.zone}
                 onChange={(v) => {
                   set("zone", v);
@@ -92,6 +93,7 @@ export default function App() {
                 }}
               />
             )}
+            <Text style={s.label}>رسوم التوصيل: {deliveryFeeText(order.zone)}</Text>
           </View>
 
           <Field label="العنوان بالتفصيل" value={order.address} onChange={(v) => set("address", v)} placeholder="قرب دوار ...، عمارة ..." />
