@@ -124,15 +124,22 @@ export interface Merchant {
   menu?: MenuItem[];
 }
 
+// Real Madaba restaurants Absher works with (list from Ayham, 2026-10-24).
+// Only names are confirmed; menus, logos, areas and phones get added as each shop sends them.
 export const MERCHANTS: Merchant[] = [
-  { slug: "haret-jdoudna", name: "حارة جدودنا", category: "restaurant", kind: "مأكولات أردنية ومشاوي", area: "وسط البلد" },
-  { slug: "bawabat-madaba", name: "بوابة مادبا", category: "restaurant", kind: "مشاوي ومقبلات", area: "شارع السياحة" },
-  { slug: "adonis", name: "مطعم أدونيس", category: "restaurant", kind: "مشاوي ومأكولات مشكّلة", area: "شارع البلقاء" },
-  { slug: "hikayet-sitti", name: "حكاية ستي", category: "restaurant", kind: "أكل بيتي ومقبلات", area: "مادبا" },
-  { slug: "diwan-the-view", name: "ديوان ذا فيو", category: "restaurant", kind: "مقلوبة ومأكولات شعبية", area: "شارع عائشة أم المؤمنين" },
-  { slug: "ayola", name: "آيولا كوفي وكتشن", category: "restaurant", kind: "مناقيش وفطور", area: "شارع الملك طلال" },
-  { slug: "jaw-zaman", name: "جو زمان", category: "restaurant", kind: "مأكولات محلية", area: "مادبا" },
-  { slug: "almandi-kitchen", name: "المندي كيتشن", category: "restaurant", kind: "مندي ومشاوي", area: "مادبا" },
+  { slug: "al-qarya", name: "القرية", category: "restaurant", kind: "مطعم" },
+  { slug: "al-ghouta", name: "الغوطة", category: "restaurant", kind: "مطعم" },
+  { slug: "mr-shawarma", name: "مستر شاورما", category: "restaurant", kind: "شاورما" },
+  { slug: "zawiya", name: "زاوية", category: "restaurant", kind: "مطعم" },
+  { slug: "mcdonalds", name: "ماكدونالدز", category: "restaurant", kind: "برغر ووجبات سريعة" },
+  { slug: "sheroti", name: "شيروتي", category: "restaurant", kind: "مطعم" },
+  { slug: "al-madaniya", name: "المدنية", category: "restaurant", kind: "مطعم" },
+  { slug: "batmoun", name: "بتمون", category: "restaurant", kind: "مطعم" },
+  { slug: "ahl-al-khair", name: "أهل الخير", category: "restaurant", kind: "مطعم" },
+  { slug: "madrid", name: "مدريد", category: "restaurant", kind: "مطعم" },
+  { slug: "fresco", name: "فريسكو", category: "restaurant", kind: "مطعم" },
+  { slug: "al-qaisar", name: "القيصر", category: "restaurant", kind: "مطعم" },
+  { slug: "dukkan-lahmeh", name: "دكان لحمة فحم وصاج", category: "restaurant", kind: "مشاوي فحم وصاج" },
   { slug: "js-supermarket", name: "جي جيز سوبرماركت", category: "supermarket", kind: "سوبرماركت وأغراض بيت", area: "طريق المطار" },
   { slug: "hyper-max", name: "هايبر ماكس", category: "supermarket", kind: "هايبرماركت", area: "مادبا" },
 ];
